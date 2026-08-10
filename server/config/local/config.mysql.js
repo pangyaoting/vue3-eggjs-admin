@@ -12,7 +12,7 @@ module.exports = {
       database: "p11_permission",
       multipleStatements: true,
     },
-    "permission.master": {
+    "permission.slave": {
       host: "localhost",
       port: "3306",
       user: "root",

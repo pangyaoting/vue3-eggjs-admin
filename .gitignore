@@ -3,3 +3,4 @@
 ./server/logs
 ./server/run
 ./server/typings
+./server/config/local/config.mysql.js

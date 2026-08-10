@@ -18,6 +18,20 @@ declare module '@vue/runtime-core' {
     Descriptions: typeof import('./src/components/Descriptions/src/Descriptions.vue')['default']
     Dialog: typeof import('./src/components/Dialog/src/Dialog.vue')['default']
     Editor: typeof import('./src/components/Editor/src/Editor.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
+    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+    ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
+    ElCol: typeof import('element-plus/es')['ElCol']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
+    ElRadio: typeof import('element-plus/es')['ElRadio']
+    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
+    ElRow: typeof import('element-plus/es')['ElRow']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Error: typeof import('./src/components/Error/src/Error.vue')['default']
     Footer: typeof import('./src/components/Footer/src/Footer.vue')['default']
     Form: typeof import('./src/components/Form/src/Form.vue')['default']
@@ -42,5 +56,8 @@ declare module '@vue/runtime-core' {
     TagsView: typeof import('./src/components/TagsView/src/TagsView.vue')['default']
     ThemeSwitch: typeof import('./src/components/ThemeSwitch/src/ThemeSwitch.vue')['default']
     UserInfo: typeof import('./src/components/UserInfo/src/UserInfo.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
