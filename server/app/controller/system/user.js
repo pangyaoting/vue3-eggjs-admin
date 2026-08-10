@@ -21,7 +21,7 @@ class UserController extends BaseController {
       }
     }
     // 2、查找数据库中是否有该玩家
-    const user = await service.system.user.findOne({ username })
+    const user = await service.system.user.findOne({ username, deleted: 0 })
     if (!user) {
       ctx.logger.info('找不到账号%s:', username)
       return this.failure(100, 'can not find account')
@@ -35,7 +35,7 @@ class UserController extends BaseController {
     // 4、10分钟内，错误次数>=5次，不允许登录
     if (
       moment().diff(moment(user.db_last_try_login_time), 'minutes') <=
-        config.login.nextTryLoginTime &&
+      config.login.nextTryLoginTime &&
       user.db_password_wrong_times >= config.login.loginFailureTimes
     ) {
       ctx.logger.info('登录时，密码错误次数限制:', user)
@@ -71,7 +71,7 @@ class UserController extends BaseController {
     ctx.validate(rules)
     const { username, email, mobile } = ctx.request.body
     // 1、先查重，是否有相同的username
-    const user = await service.system.user.findOne({ username })
+    const user = await service.system.user.findOne({ username, deleted: 0 })
     if (user) {
       ctx.logger.info('创建用户时,用户名username: %s 已经存在', username)
       return this.failure()
@@ -87,7 +87,7 @@ class UserController extends BaseController {
       register_ip: ctx.ip
     }
     const rt = await service.system.user.create(createUser)
-    if (rt&&rt.length>0) {
+    if (rt && rt.length > 0) {
       return this.success()
     }
     return this.failure()

@@ -11,6 +11,7 @@ import { getAllResourceApi, assignResourceApi } from '@/api/system/resource'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElNotification, ElTree, ElMessage } from 'element-plus'
 import type Node from 'element-plus/es/components/tree/src/model/node'
+import { onActivated  } from 'vue'
 
 interface role {
   id: number
@@ -114,6 +115,19 @@ getAllResourceApi().then((res) => {
   console.log('all resource:', res)
   resourceList.value = res?.data
 })
+
+const savedRole = sessionStorage.getItem('currentRoleId')
+if (savedRole) {
+  currentRole.value = Number(savedRole)
+  handleRoleChange(currentRole.value)
+}
+
+onActivated(() => {
+  if (currentRole.value) {
+    handleRoleChange(currentRole.value)
+  }
+})
+
 </script>
 <template>
   <el-row :gutter="20">

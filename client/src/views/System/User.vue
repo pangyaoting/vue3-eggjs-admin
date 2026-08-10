@@ -15,6 +15,7 @@ import AssignRole from './components/AssignRole.vue'
 import { ElTag } from 'element-plus'
 import { formatTime } from '@/utils'
 import { ElNotification } from 'element-plus'
+import { emitter } from '@/utils/eventBus' 
 
 const { t } = useI18n()
 

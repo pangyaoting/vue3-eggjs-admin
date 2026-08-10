@@ -13,6 +13,7 @@ class UserRoleService extends BaseService {
     const users = await this.slaveDb('users')
       .select(['id', 'username', 'status'])
       .where('id', 'in', sub)
+      .where('deleted', 0)
     return users
   }
 }
