@@ -5,11 +5,11 @@ class NoticeController extends BaseController {
   async list() {
     const { ctx, service } = this
     const { page = 1, pageSize = 10, title } = ctx.query
-    const where = {}
-    if (title) {
-      where.title = title
-    }
-    const list = await service.system.notice.list({ page, pageSize, where })
+    const list = await service.system.notice.list({
+      page: Number(page),
+      pageSize: Number(pageSize),
+      title
+    })
     this.success(list)
   }
 
@@ -31,8 +31,8 @@ class NoticeController extends BaseController {
       content: 'string?'
     }
     ctx.validate(rules)
-    const { title, content } = ctx.request.body
-    await service.system.notice.create({ title, content, status: 1 })
+    const { title, content, status } = ctx.request.body
+    await service.system.notice.create({ title, content, status: status ?? 1 })
     this.success()
   }
 
@@ -41,7 +41,6 @@ class NoticeController extends BaseController {
     const { ctx, service } = this
     const rules = {
       id: 'number',
-      title: 'string'
     }
     ctx.validate(rules)
     const { id, title, content, status } = ctx.request.body

@@ -94,6 +94,15 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
           title: t('router.permission'),
           icon: 'ant-design:dashboard-filled'
         }
+      },
+      {
+        path: 'notice',
+        component: () => import('@/views/System/notice/index.vue'),
+        name: 'NoticeAdmin',
+        meta: {
+          title: '公告管理',
+          icon: 'ant-design:dashboard-filled'
+        }
       }
     ]
   },

@@ -1,6 +1,0 @@
-./client/node_modules
-./server/node_modules
-./server/logs
-./server/run
-./server/typings
-./server/config/local/config.mysql.js
