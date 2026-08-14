@@ -70,11 +70,12 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/dashboard',
     component: Layout,
-    name: 'Dashboard',
+    name: 'DashboardLayout ',
     meta: {
       title: t('dashboard.title'),
       icon: 'ant-design:bar-chart-outlined',
-      noCache: true
+      noCache: true,
+      noPermission: true
     },
     children: [
       {
