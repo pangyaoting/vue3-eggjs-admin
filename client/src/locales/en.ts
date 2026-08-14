@@ -101,6 +101,10 @@ export default {
   },
   router: {
     login: 'Login',
+    welcome: 'Home',
+    system: 'System',
+    userAdmin: 'Users',
+    permission: 'Permissions',
     level: 'Multi level menu',
     menu: 'Menu',
     menu1: 'Menu1',
@@ -436,5 +440,45 @@ export default {
   inputPasswordDemo: {
     title: 'InputPassword',
     inputPasswordDes: 'Secondary packaging of Input components based on ElementPlus'
-  }
+  },
+  notice: {
+    title: 'Notices',
+    listTitle: 'Notice List',
+    searchTitle: 'Notice Title',
+    placeholderTitle: 'Please input title',
+    query: 'Query',
+    reset: 'Reset',
+    add: 'Add Notice',
+    edit: 'Edit Notice',
+    delete: 'Delete',
+    content: 'Content',
+    status: 'Status',
+    show: 'Show',
+    hide: 'Hide',
+    cancel: 'Cancel',
+    submit: 'Submit',
+    created_at: 'Created At',
+    operation: 'Operation',
+    id: 'ID',
+    deleteConfirm: 'Are you sure to delete this notice?',
+    deleteSuccess: 'Deleted successfully',
+    addSuccess: 'Added successfully',
+    editSuccess: 'Edited successfully',
+    titleRequired: 'Please input notice title',
+    empty: 'No Notice'
+  },
+  dashboard: {
+    title: 'Dashboard',
+    noticeCount: 'Total Notices',
+    userCount: 'Total Users',
+    roleCount: 'Total Roles',
+    noticeStatus: 'Notice Status',
+    userStatus: 'User Status',
+    noticeTrend: 'Notice Trend (7 days)',
+    noNoticeData: 'No notice data',
+    noUserData: 'No user data',
+    noTrendData: 'No notice in last 7 days',
+    normal: 'Normal',
+    frozen: 'Frozen'
+  },
 }

@@ -3,7 +3,6 @@ import type { RouteRecordRaw } from 'vue-router'
 import type { App } from 'vue'
 import { Layout } from '@/utils/routerHelper'
 import { useI18n } from '@/hooks/web/useI18n'
-
 const { t } = useI18n()
 
 // 不需要进行权限判断的固定路由
@@ -54,6 +53,7 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
       icon: 'ant-design:dashboard-filled',
       noPermission: true
     },
+
     children: [
       {
         path: '',
@@ -63,6 +63,28 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
           title: t('router.welcome'),
           noTagsView: true,
           icon: 'ant-design:dashboard-filled'
+        }
+      }
+    ]
+  },
+  {
+    path: '/dashboard',
+    component: Layout,
+    name: 'Dashboard',
+    meta: {
+      title: t('dashboard.title'),
+      icon: 'ant-design:bar-chart-outlined',
+      noCache: true
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/dashboard/Dashboard.vue'),
+        name: 'Dashboard',
+        meta: {
+          title: t('dashboard.title'),
+          icon: 'ant-design:bar-chart-outlined',
+          noCache: true
         }
       }
     ]
@@ -97,10 +119,10 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
       },
       {
         path: 'notice',
-        component: () => import('@/views/System/notice/index.vue'),
+        component: () => import('@/views/System/notice/Notice.vue'),
         name: 'NoticeAdmin',
         meta: {
-          title: '公告管理',
+          title: t('notice.title'),
           icon: 'ant-design:dashboard-filled'
         }
       }

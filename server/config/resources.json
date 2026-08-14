@@ -166,5 +166,27 @@
         ]
       }
     ]
+  },
+  {
+    "code": "dashboard",
+    "name": "Dashboard",
+    "uri": "/dashboard",
+    "type": 1,
+    "children": [
+      {
+        "code": "dashboard.stats",
+        "name": "dashboardStats",
+        "uri": "/dashboard/stats",
+        "method": "GET",
+        "type": 2
+      },
+      {
+        "code": "dashboard.trend",
+        "name": "dashboardTrend",
+        "uri": "/dashboard/trend",
+        "method": "GET",
+        "type": 2
+      }
+    ]
   }
 ]

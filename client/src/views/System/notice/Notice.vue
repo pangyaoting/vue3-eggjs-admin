@@ -3,12 +3,12 @@
     <!-- 搜索栏 -->
     <el-card class="search-card">
       <el-form :inline="true" :model="searchForm" @keyup.enter="handleSearch">
-        <el-form-item label="公告标题">
-          <el-input v-model="searchForm.title" placeholder="请输入标题" clearable />
+        <el-form-item :label="t('notice.searchTitle')">
+          <el-input v-model="searchForm.title" :placeholder="t('notice.placeholderTitle')" clearable />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">查询</el-button>
-          <el-button @click="handleReset">重置</el-button>
+          <el-button type="primary" @click="handleSearch">{{ t('notice.query') }} </el-button>
+          <el-button @click="handleReset">{{ t('notice.reset') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -17,37 +17,37 @@
     <el-card class="table-card">
       <template #header>
         <div class="card-header">
-          <span>公告列表</span>
-          <el-button type="primary" @click="handleAdd">新增公告</el-button>
+          <span>{{ t('notice.listTitle') }}</span>
+          <el-button type="primary" @click="handleAdd">{{ t('notice.add') }}</el-button>
         </div>
       </template>
       <el-table :data="tableData" border stripe v-loading="loading">
         <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="title" label="标题" min-width="200" />
-        <el-table-column prop="content" label="内容" min-width="300" show-overflow-tooltip />
-        <el-table-column label="状态" width="100">
+        <el-table-column prop="title" :label="t('notice.title')" min-width="200" />
+        <el-table-column prop="content" :label="t('notice.content')" min-width="300" show-overflow-tooltip />
+        <el-table-column :label="t('notice.status')" width="100">
           <template #default="{ row }">
             <el-tag :type="row.status === 1 ? 'success' : 'info'">
-              {{ row.status === 1 ? '显示' : '隐藏' }}
+              {{ row.status === 1 ? t('notice.show') : t('notice.hide') }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="created_at" label="创建时间" width="180">
+        <el-table-column prop="created_at" :label="t('notice.created_at')" width="180">
           <template #default="{ row }">
             {{ formatTime(row.created_at) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column :label="t('notice.operation')" width="280" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" link @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" link @click="handleDelete(row)">删除</el-button>
+            <el-button type="primary" link @click="handleEdit(row)">{{ t('notice.edit') }}</el-button>
+            <el-button type="danger" link @click="handleDelete(row)">{{ t('notice.delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 空状态 -->
       <template #empty>
-        <el-empty description="暂无公告" />
+        <el-empty :description="t('notice.noData')" />
       </template>
 
       <!-- 分页 -->
@@ -65,27 +65,27 @@
     <!-- 新增/编辑弹窗 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="isEdit ? '编辑公告' : '新增公告'"
+      :title="isEdit ? t('notice.edit') : t('notice.add')"
       width="600px"
       @close="handleDialogClose"
     >
-      <el-form ref="formRef" :model="formData" :rules="formRules" label-width="80px" @submit.prevent>
-        <el-form-item label="标题" prop="title">
-          <el-input v-model="formData.title" placeholder="请输入公告标题" />
+      <el-form ref="formRef" :model="formData" :rules="formRules" label-width="110px" @submit.prevent>
+        <el-form-item :label="t('notice.searchTitle')" prop="title">
+          <el-input v-model="formData.title" :placeholder="t('notice.titleRequired')" />
+        </el-form-item> 
+        <el-form-item :label="t('notice.content')" prop="content">
+          <el-input v-model="formData.content" type="textarea" :rows="5" :placeholder="t('notice.content')" />
         </el-form-item>
-        <el-form-item label="内容" prop="content">
-          <el-input v-model="formData.content" type="textarea" :rows="5" placeholder="请输入公告内容" />
-        </el-form-item>
-        <el-form-item label="状态" prop="status">
+        <el-form-item :label="t('notice.status')" prop="status">
           <el-radio-group v-model="formData.status">
-            <el-radio :label="1">显示</el-radio>
-            <el-radio :label="0">隐藏</el-radio>
+            <el-radio :label="1">{{ t('notice.show') }}</el-radio>
+            <el-radio :label="0">{{ t('notice.hide') }}</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
       <template #footer>
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmit" :loading="submitLoading">确定</el-button>
+        <el-button @click="dialogVisible = false">{{ t('notice.cancel') }}</el-button>
+        <el-button type="primary" @click="handleSubmit" :loading="submitLoading">{{ t('notice.submit') }}</el-button>
       </template>
     </el-dialog>
   </div>
@@ -103,6 +103,8 @@ import {
 } from '@/api/system/notice/index'
 import type { NoticeData } from '@/api/system/notice/types'
 import { formatTime } from '@/utils'
+import { useI18n } from '@/hooks/web/useI18n'
+const { t } = useI18n()
 
 // 搜索表单
 const searchForm = reactive({
@@ -134,7 +136,7 @@ const formData = reactive({
 
 // 表单校验规则
 const formRules = {
-  title: [{ required: true, message: '请输入公告标题', trigger: 'blur' }]
+  title: [{ required: true, message: t('notice.titleRequired'), trigger: 'blur' }]
 }
 
 // 获取列表数据
@@ -188,11 +190,11 @@ const handleEdit = (row: NoticeData) => {
 // 删除
 const handleDelete = async (row: NoticeData) => {
   try {
-    await ElMessageBox.confirm('确定要删除该公告吗？', '提示', {
+    await ElMessageBox.confirm(t('notice.deleteConfirm'), t('notice.reminder'), {
       type: 'warning'
     })
     await deleteNoticeApi(row.id)
-    ElMessage.success('删除成功')
+    ElMessage.success(t('notice.deleteSuccess'))
     fetchData()
   } catch {
     // 用户取消删除
@@ -208,10 +210,10 @@ const handleSubmit = async () => {
   try {
     if (isEdit.value) {
       await updateNoticeApi(formData)
-      ElMessage.success('编辑成功')
+      ElMessage.success(t('notice.editSuccess'))
     } else {
       await createNoticeApi(formData)
-      ElMessage.success('新增成功')
+      ElMessage.success(t('notice.addSuccess'))
       searchForm.title = ''   
       pagination.page = 1     
     }

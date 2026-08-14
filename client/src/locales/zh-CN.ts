@@ -1,3 +1,5 @@
+import { ca } from "element-plus/es/locale";
+
 export default {
   common: {
     inputText: '请输入',
@@ -268,5 +270,45 @@ export default {
   },
   systemMessages: {
     addSystemMessages: '创建系统消息'
-  }
+  },
+  notice: {
+    title: '公告管理',
+    listTitle: '公告列表',
+    searchTitle: '公告标题',
+    placeholderTitle: '请输入标题',
+    query: '查询',
+    reset: '重置',
+    add: '新增公告',
+    edit: '编辑公告',
+    delete: '删除',
+    content: '内容',
+    status: '状态',
+    show: '显示',
+    hide: '隐藏',
+    cancel: '取消',
+    submit: '提交',
+    created_at: '创建时间',
+    operation: '操作',
+    id: 'ID',
+    deleteConfirm: '确定要删除该公告吗？',
+    deleteSuccess: '删除成功',
+    addSuccess: '新增成功',
+    editSuccess: '编辑成功',
+    titleRequired: '请输入公告标题',
+    empty: '暂无公告'
+  },
+  dashboard: {
+    title: '数据看板',
+    noticeCount: '公告总数',
+    userCount: '用户总数',
+    roleCount: '角色总数',
+    noticeStatus: '公告状态分布',
+    userStatus: '用户状态分布',
+    noticeTrend: '近 7 天公告发布趋势',
+    noNoticeData: '暂无公告数据',
+    noUserData: '暂无用户数据',
+    noTrendData: '近 7 天暂无公告',
+    normal: '正常',
+    frozen: '冻结'
+  },
 }
