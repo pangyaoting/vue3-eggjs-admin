@@ -58,6 +58,15 @@ module.exports = (appInfo) => {
 
   config.proxy = true // 应用通过Nginx代理时候，配置成true，用于获取用于真实ip
 
+  // 会话（egg-session）配置
+  config.session = {
+    key: 'EGG_SESS',
+    maxAge: 2 * 60 * 60 * 1000, // 2 小时
+    renew: true,                 // 剩余不足一半时自动续期
+    httpOnly: true,
+    sameSite: 'lax'
+  }
+
   config.login = {
     singleLogin: false, // 是否开启单点登录
     loginFailureTimes: 5, // 登录最大重复次数

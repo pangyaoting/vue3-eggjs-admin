@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import { usePermissionStoreWithOut } from '@/store/modules/permission'
 
 import qs from 'qs'
 
@@ -10,7 +11,12 @@ import { useI18n } from '@/hooks/web/useI18n'
 
 const { result_code, base_url } = config
 
+import { appModules } from '@/config/app'
+import { useCache } from '@/hooks/web/useCache'
+
 export const PATH_URL = base_url[import.meta.env.VITE_API_BASEPATH]
+
+let redirecting = false // 放在文件顶部（service 实例创建前）
 
 // 创建axios实例
 const service: AxiosInstance = axios.create({
@@ -67,8 +73,21 @@ service.interceptors.response.use(
     }
   },
   (error: AxiosError) => {
-    console.log('err' + error) // for debug
-    ElMessage.error(error.message)
+    const status = error.response?.status
+    if (status === 401 && !redirecting) {
+      redirecting = true
+      const { wsCache } = useCache()
+      wsCache.delete(appModules.userInfo)
+      usePermissionStoreWithOut().$reset()
+      ElMessage.error('登录已过期，请重新登录')  // ③ toast 挂在 body 上
+      const currentPath = window.location.hash.slice(1) // 去掉 '#'
+      window.location.hash = `#/login?redirect=${encodeURIComponent(currentPath)}`      // ④ SPA 内跳转，不销毁 toast —— 不 reload、不延时
+    } else {
+      console.log('err' + error) // for debug
+      ElMessage.error(error.message)
+    }
+
+
     return Promise.reject(error)
   }
 )
