@@ -17,7 +17,7 @@ function createOneClient(config, app) {
     const cf = {
         client: "mysql",
         connection: config,
-        debug: true,
+        debug: false,
         acquireConnectionTimeout: 10000,
     };
 
@@ -30,7 +30,7 @@ function createOneClient(config, app) {
     //         acquireConnectionTimeout: 10000
     //     }
     // };
-   
+
     return knex(cf);
     // const { db } = knex(cf);
     // return db;

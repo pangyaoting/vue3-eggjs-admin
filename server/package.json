@@ -15,7 +15,7 @@
     "egg-scripts": "^2",
     "egg-validate": "^2.0.2",
     "knex": "^2.3.0",
-    "knex-paginate": "^3.0.2",
+    "knex-paginate": "3.2.0",
     "moment": "^2.29.4",
     "mongoose-paginate-v2": "^1.7.1",
     "mysql": "^2.18.1"

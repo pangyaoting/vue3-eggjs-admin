@@ -48,14 +48,35 @@ class DashboardService extends Service {
       .groupBy('status')
   }
 
-  // 近 N 天公告发布趋势（返回 [{date, count}]）
+  // 近 N 天公告发布趋势（返回 [{date, count}]，补全无数据的日期为 0）
   async noticeTrend(days = 7) {
-    return await this.db('notices')
+    const list = await this.db('notices')
       .select(this.db.raw('DATE(created_at) as date'), this.db.raw('count(*) as count'))
       .where('created_at', '>=', this.db.raw('DATE_SUB(CURDATE(), INTERVAL ? DAY)', [days - 1]))
       .groupBy(this.db.raw('DATE(created_at)'))
       .orderBy('date', 'asc')
+
+    // ↓↓↓ 新增：把查询结果转成 map，date 统一成 YYYY-MM-DD 字符串
+    const countMap = {}
+    list.forEach((item) => {
+      const d = item.date instanceof Date ? item.date : new Date(item.date)
+      const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+      countMap[dateStr] = Number(item.count)
+    })
+
+    // ↓↓↓ 新增：补全最近 N 天，无数据的日期 count 为 0
+    const result = []
+    const today = new Date()
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today)
+      d.setDate(today.getDate() - i)
+      const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+      result.push({
+        date: dateStr,
+        count: countMap[dateStr] || 0
+      })
+    }
+    return result
   }
 }
-
 module.exports = DashboardService

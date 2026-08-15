@@ -9,7 +9,7 @@ class BaseController extends Controller {
    * @param {*} msg 错误信息
    * @memberof BaseController
    */
-  failure(code=-1, msg) {
+  failure(code = -1, msg) {
     this.ctx.body = {
       code,
       msg
@@ -28,5 +28,9 @@ class BaseController extends Controller {
       data
     }
   }
+
+
 }
 module.exports = BaseController
+
+

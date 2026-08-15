@@ -17,6 +17,12 @@ module.exports = () => {
       ctx.body = { code: 401, msg: '未登录或登录已过期' }
       return
     }
+    // ↓↓↓ 新增：管理员直接放行，不查数据库
+    if (ctx.session.user && ctx.session.user.is_admin) {
+      await next()
+      return
+    }
+
 
     // 3、白名单：需登录态，但不做资源权限校验
     const whitelist = [
@@ -47,8 +53,7 @@ module.exports = () => {
     const permissionUrl = url.replace(/^\/api\/system/, '')
 
     // 6、管理员放行
-    const user = await ctx.service.system.user.findOne({ id: ctx.session.user.id })
-    if (user?.is_admin === 1) {
+    if (ctx.session.user.is_admin === 1) {
       return await next()
     }
 

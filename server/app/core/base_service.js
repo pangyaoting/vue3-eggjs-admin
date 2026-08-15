@@ -16,13 +16,14 @@ class BaseService extends Service {
     this.dbName = dbName
     this.tableName = tableName
     this.masterDb = this.app.mysql.get(`${this.dbName}.master`)
-    this.slaveDb = this.app.mysql.get(`${this.dbName}.slave`)
-    this.masterDbQuery = this.app.mysql.get(`${this.dbName}.master`)(this.tableName)
+    this.slaveDb = this.app.mysql.get(`${this.dbName}.slave`) || this.masterDb
+    // 保留旧属性仅为向后兼容，各方法内部均已改为每次新建 builder，避免状态污染
+    this.masterDbQuery = this.masterDb(this.tableName)
     options = options || { single: false }
     if (options || options.single) {
       this.slaveDbQuery = this.masterDbQuery
     } else {
-      this.slaveDbQuery = this.app.mysql.get(`${this.dbName}.slave`)(this.tableName)
+      this.slaveDbQuery = this.slaveDb(this.tableName)
     }
   }
 
@@ -36,14 +37,14 @@ class BaseService extends Service {
    * @memberof BaseService
    */
   async create(data) {
-    return await this.masterDbQuery.insert(data)
+    return await this.masterDb(this.tableName).insert(data)
   }
 
 
 
   // 修改数据
   async update(data, where = {}) {
-    return await this.masterDbQuery.update(data).where(where)
+    return await this.masterDb(this.tableName).update(data).where(where)
   }
 
   //  options = [{
@@ -73,7 +74,7 @@ class BaseService extends Service {
     try {
       await Promise.all(
         options.map((tuple) =>
-          this.masterDbQuery.clone().where(tuple.where).update(tuple.row).transacting(trx)
+          this.masterDb(this.tableName).where(tuple.where).update(tuple.row).transacting(trx)
         )
       )
       await trx.commit()
@@ -85,12 +86,12 @@ class BaseService extends Service {
 
   // 删除数据
   async destroy(where = {}) {
-    return await this.masterDbQuery.delete().where(where)
+    return await this.masterDb(this.tableName).delete().where(where)
   }
 
   // 查找一个
   async findOne(where = {}) {
-    return await this.slaveDbQuery.first().where(where)
+    return await this.slaveDb(this.tableName).first().where(where)
   }
 
   // 查找所有
@@ -103,7 +104,7 @@ class BaseService extends Service {
   // *  - {Number} offset         result offset, default is `0`
   // * @return {Array} result rows
   async findAll({ where, whereRaw, orders } = {}) {
-    const query = this.slaveDbQuery.select()
+    const query = this.slaveDb(this.tableName).select()
     if (where) {
       query.where(where)
     }
@@ -118,10 +119,10 @@ class BaseService extends Service {
 
   // count数据
   async count(where) {
-    return await this.slaveDbQuery.count('*').where(where)
+    return await this.slaveDb(this.tableName).count('*').where(where)
   }
   async countDistinct(field, where) {
-    return await this.slaveDbQuery.countDistinct(field).where(where)
+    return await this.slaveDb(this.tableName).countDistinct(field).where(where)
   }
 
   // 显示列表，分页显示
@@ -138,7 +139,7 @@ class BaseService extends Service {
    * @memberof BaseService
    */
   async list({ page, pageSize, where, whereRaw, columns, orders, jsonContain = [] }) {
-    const query = this.slaveDbQuery
+    const query = this.slaveDb(this.tableName)
     if (columns) {
       query.select(columns)
     } else {
