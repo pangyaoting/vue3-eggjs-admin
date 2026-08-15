@@ -1,5 +1,7 @@
 export default {
   common: {
+    add: 'Add',
+    success: 'Success',
     inputText: 'Please input',
     selectText: 'Please select',
     startTimeText: 'Start time',
@@ -151,6 +153,34 @@ export default {
   permission: {
     hasPermission: 'Please set the operation permission value'
   },
+  resource: {
+    System: 'System Settings',
+    UserAdmin: 'User Management',
+    createUser: 'Create User',
+    userList: 'User List',
+    userAssignRole: 'Assign Role',
+    userToggle: 'Toggle User Status',
+    destroyUser: 'Delete User',
+    userRoles: 'Get User Roles',
+    resetPsw: 'Reset Password',
+    roleAdmin: 'Role Management',
+    createRole: 'Create Role',
+    roleList: 'Role List',
+    getRoleResource: 'Get Role Resources',
+    getRoleUsers: 'Get Role Users',
+    delRole: 'Delete Role',
+    Permission: 'Permission Management',
+    getAllResource: 'Get All Resources',
+    assignResource: 'Assign Resources',
+    NoticeAdmin: 'Notice Management',
+    noticeList: 'Notice List',
+    createNotice: 'Create Notice',
+    updateNotice: 'Update Notice',
+    deleteNotice: 'Delete Notice',
+    Dashboard: 'Dashboard',
+    dashboardStats: 'Dashboard Stats',
+    dashboardTrend: 'Notice Trend'
+  },
   analysis: {
     newUser: 'New user',
     unreadInformation: 'Unread information',
@@ -251,8 +281,7 @@ export default {
     inputPassword: 'input Password',
     passwordStrength: 'Password Strength',
     defaultForm: 'All examples',
-    formDes:
-      'The secondary encapsulation of form components based on ElementPlus realizes data-driven and supports all Form parameters',
+    formDes: 'The secondary encapsulation of form components based on ElementPlus realizes data-driven and supports all Form parameters',
     example: 'example',
     operate: 'operate',
     change: 'Change',
@@ -271,27 +300,23 @@ export default {
   guideDemo: {
     guide: 'Guide',
     start: 'Start',
-    message:
-      'The guide page is very useful for some people who enter the project for the first time. You can briefly introduce the functions of the project. The boot page is based on intro js'
+    message: 'The guide page is very useful for some people who enter the project for the first time. You can briefly introduce the functions of the project. The boot page is based on intro js'
   },
   iconDemo: {
     icon: 'Icon',
     localIcon: 'Local Icon',
     iconify: 'Iconify component',
     recommendedUse: 'Recommended use',
-    recommendeDes:
-      'Iconify component basically contains all icons. You can query any icon you want. And packaging will only package the icons used.',
+    recommendeDes: 'Iconify component basically contains all icons. You can query any icon you want. And packaging will only package the icons used.',
     accessAddress: 'Access address'
   },
   echartDemo: {
     echart: 'Echart',
-    echartDes:
-      'Based on the secondary packaging components of eckarts, the width is adaptive. The corresponding chart can be displayed by passing in the options and height attributes.'
+    echartDes: 'Based on the secondary packaging components of eckarts, the width is adaptive. The corresponding chart can be displayed by passing in the options and height attributes.'
   },
   countToDemo: {
     countTo: 'CountTo',
-    countToDes:
-      'The transformation is based on vue-count-to and supports all vue-count-to parameters.',
+    countToDes: 'The transformation is based on vue-count-to and supports all vue-count-to parameters.',
     suffix: 'Suffix',
     prefix: 'Prefix',
     separator: 'Separator',
@@ -337,8 +362,7 @@ export default {
   },
   searchDemo: {
     search: 'Search',
-    searchDes:
-      'Based on the secondary encapsulation of form components, the functions of query and reset are realized',
+    searchDes: 'Based on the secondary encapsulation of form components, the functions of query and reset are realized',
     operate: 'operate',
     change: 'Change',
     grid: 'grid',
@@ -426,8 +450,7 @@ export default {
   },
   userDemo: {
     title: 'User management',
-    message:
-      'Because it is simulated data, only two accounts with different permissions are provided, which can be modified and combined by developers according to the actual situation.',
+    message: 'Because it is simulated data, only two accounts with different permissions are provided, which can be modified and combined by developers according to the actual situation.',
     index: 'Index',
     action: 'Action',
     username: 'Username',
@@ -440,6 +463,40 @@ export default {
   inputPasswordDemo: {
     title: 'InputPassword',
     inputPasswordDes: 'Secondary packaging of Input components based on ElementPlus'
+  },
+  system: {
+    username: 'Username',
+    mobile: 'Mobile',
+    email: 'Email',
+    status: 'Status',
+    role: 'Role',
+    normal: 'Normal',
+    frozen: 'Frozen',
+    frozenUser: 'Freeze User',
+    unlockUser: 'Unlock User',
+    assignRole: 'Assign Role',
+    deleteUser: 'Delete User',
+    resetUserPassword: 'Reset Password',
+    addUser: 'Add User',
+    usernameRule: 'Username must be 6-16 digits and letters',
+    addUserSuccess: 'User added successfully',
+    frozeUserSuccess: 'User frozen successfully',
+    unlockUserSuccess: 'User unlocked successfully',
+    resetPasswordSuccess: 'Password reset successfully',
+    superAdmin: 'Super Admin',
+    noAssign: 'Unassigned',
+    roleList: 'Role List',
+    assignRoleSuccess: 'Role assigned successfully',
+    delRoleTips: 'Are you sure to delete this role?',
+    delRoleSuccess: 'Role deleted successfully',
+    roleName: 'Role Name',
+    addRole: 'Add Role',
+    addRoleSuccess: 'Role added successfully',
+    noUsers: 'No users assigned to this role',
+    userList: 'User List',
+    resourceList: 'Permission List',
+    confirmAssign: 'Confirm Assign',
+    assignResSuccess: 'Permission assigned successfully'
   },
   notice: {
     title: 'Notices',
@@ -480,5 +537,5 @@ export default {
     noTrendData: 'No notice in last 7 days',
     normal: 'Normal',
     frozen: 'Frozen'
-  },
+  }
 }

@@ -179,6 +179,7 @@ const handleAdd = () => {
 
 // 编辑
 const handleEdit = (row: NoticeData) => {
+  ;(document.activeElement as HTMLElement)?.blur()  
   isEdit.value = true
   formData.id = row.id
   formData.title = row.title
@@ -189,6 +190,7 @@ const handleEdit = (row: NoticeData) => {
 
 // 删除
 const handleDelete = async (row: NoticeData) => {
+  ;(document.activeElement as HTMLElement)?.blur()  
   try {
     await ElMessageBox.confirm(t('notice.deleteConfirm'), t('notice.reminder'), {
       type: 'warning'

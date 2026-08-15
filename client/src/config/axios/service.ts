@@ -70,6 +70,8 @@ service.interceptors.response.use(
       // const key = `error.${response.config.url?.split('/').join('_')}.${response.data.code}`
       ElMessage.error(t(key, { code: response.data.code }))
       console.error(response.data.msg)
+
+      return Promise.reject(response.data)
     }
   },
   (error: AxiosError) => {

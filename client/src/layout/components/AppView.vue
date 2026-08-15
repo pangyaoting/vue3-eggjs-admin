@@ -36,12 +36,12 @@ const getCaches = computed((): string[] => {
     ]"
   >
     <router-view>
-      <template #default="{ Component, route }">
+      <template #default="{ Component }">
         <keep-alive :include="getCaches">
-          <component :is="Component" :key="route.fullPath" />
+          <component :is="Component" />
         </keep-alive>
       </template>
     </router-view>
   </section>
-  <Footer v-if="footer" />
+  <Footer v-if="false" />
 </template>

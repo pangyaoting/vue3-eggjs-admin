@@ -16,6 +16,13 @@ import { ElTag } from 'element-plus'
 import { formatTime } from '@/utils'
 import { ElNotification } from 'element-plus'
 import { emitter } from '@/utils/eventBus' 
+import {
+  UserFilled,
+  Lock,
+  Unlock,
+  DeleteFilled,
+  WarningFilled
+} from '@element-plus/icons-vue'
 
 const { t } = useI18n()
 
@@ -199,7 +206,7 @@ const handleAssignRole = (row: TableData) => {
     >
       <template #action="{ row }">
         <el-tooltip effect="dark" :content="t('system.assignRole')" placement="top">
-          <el-button type="primary" @click="handleAssignRole(row)" icon="UserFilled" circle />
+          <el-button type="primary" @click="handleAssignRole(row)" :icon="UserFilled" circle />
         </el-tooltip>
         <el-tooltip
           effect="dark"
@@ -207,7 +214,7 @@ const handleAssignRole = (row: TableData) => {
           placement="top"
           v-if="row.status === 1"
         >
-          <el-button type="warning" @click="action(row, 'froze')" icon="Lock" circle />
+          <el-button type="warning" @click="action(row, 'froze')" :icon="Lock" circle />
         </el-tooltip>
         <el-tooltip
           effect="dark"
@@ -215,16 +222,16 @@ const handleAssignRole = (row: TableData) => {
           placement="top"
           v-if="row.status === 0"
         >
-          <el-button type="success" @click="action(row, 'unlock')" icon="Unlock" circle />
+          <el-button type="success" @click="action(row, 'unlock')" :icon="Unlock" circle />
         </el-tooltip>
         <el-tooltip effect="dark" :content="t('system.deleteUser')" placement="top">
-          <el-button type="danger" @click="action(row, 'del')" icon="DeleteFilled" circle />
+          <el-button type="danger" @click="action(row, 'del')" :icon="DeleteFilled" circle />
         </el-tooltip>
         <el-tooltip effect="dark" :content="t('system.resetUserPassword')" placement="top">
           <el-button
             type="primary"
             @click="action(row, 'reset')"
-            icon="WarnTriangleFilled"
+            :icon="WarningFilled"
             circle
           />
         </el-tooltip>

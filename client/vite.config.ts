@@ -130,6 +130,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
       host: '0.0.0.0'
     },
+    preview: {
+      port: 4000,
+      proxy: {
+        '/api': {
+          target: 'http://127.0.0.1:7211',
+          changeOrigin: true,
+        }
+      }
+    },
     optimizeDeps: {
       include: [
         'vue',
@@ -146,7 +155,21 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'intro.js',
         'qrcode',
         '@wangeditor/editor',
-        '@wangeditor/editor-for-vue'
+        '@wangeditor/editor-for-vue',
+
+        'element-plus',
+        'pinia',
+        'dayjs',
+        'lodash-es',
+        'nprogress',
+        '@element-plus/icons-vue',
+        'vue-i18n',
+        'sortablejs',
+        'mitt',
+        'web-storage-cache',
+        '@zxcvbn-ts/core',
+        'animate.css'
+
       ]
     }
   }

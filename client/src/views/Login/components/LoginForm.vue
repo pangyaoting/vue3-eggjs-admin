@@ -6,6 +6,7 @@ import { useForm } from '@/hooks/web/useForm'
 import { loginApi } from '@/api/login'
 import { useCache } from '@/hooks/web/useCache'
 import { useAppStore } from '@/store/modules/app'
+import { usePermissionStore } from '@/store/modules/permission'  // ← 新增
 import { useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import { UserType } from '@/api/login/types'
@@ -90,12 +91,11 @@ watch(
   }
 )
 
-// 登录
+// ====== 修改位置2：signIn 函数内，登录成功后 ======
+
 const signIn = async () => {
   const formRef = unref(elFormRef)
-  console.log(formRef)
   await formRef?.validate(async (isValid) => {
-    console.log(isValid)
     if (isValid) {
       loading.value = true
       const { getFormData } = methods
@@ -103,9 +103,15 @@ const signIn = async () => {
 
       try {
         const res = await loginApi(formData)
-        console.log('login res ', res)
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data)
+
+          // ↓↓↓ 新增：登录成功后立即预加载权限资源，不等第一次点菜单
+          const permissionStore = usePermissionStore()
+          permissionStore.getResource().catch(() => {
+            console.warn('预加载权限资源失败')
+          })
+
           push({ path: redirect.value || '/' })
         }
       } finally {

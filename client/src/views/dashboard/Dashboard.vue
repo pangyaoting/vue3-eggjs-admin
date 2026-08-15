@@ -55,6 +55,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
+import dayjs from 'dayjs'
 import { getDashboardStatsApi, getDashboardTrendApi } from '@/api/system/dashboard'
 import { useI18n } from '@/hooks/web/useI18n'
 const { t } = useI18n()
@@ -167,10 +168,18 @@ const loadTrend = async () => {
         top: 'center',
         textStyle: { fontSize: 14, color: '#909399' }
       },
-      tooltip: { trigger: 'axis' },
+// ====== 修改位置3：第170行，tooltip ======
+
+tooltip: {
+  trigger: 'axis',
+  formatter: (params: any) => {
+    const item = params[0]
+    return `${dayjs(item.name).format('YYYY-MM-DD')}<br/>${t('dashboard.noticeCount')}：${item.value}`
+  }
+},
       xAxis: {
         type: 'category',
-        data: trendData.value.map((item) => item.date)
+        data: trendData.value.map((item) => dayjs(item.date).format('YYYY-MM-DD'))
       },
       yAxis: { type: 'value', minInterval: 1 },
       series: [

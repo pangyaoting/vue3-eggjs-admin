@@ -175,7 +175,15 @@ export default {
     delRole: '删除角色',
     Permission: '权限管理',
     getAllResource: '获取所有资源',
-    assignResource: '分配资源'
+    assignResource: '分配资源',
+    NoticeAdmin: '公告管理',
+    noticeList: '公告列表',
+    createNotice: '创建公告',
+    updateNotice: '更新公告',
+    deleteNotice: '删除公告',
+    Dashboard: '数据看板',
+    dashboardStats: '看板统计',
+    dashboardTrend: '公告趋势',
   },
   tool: {
     all: '全部',

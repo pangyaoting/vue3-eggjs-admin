@@ -39,7 +39,7 @@ import './permission'
 // 创建实例
 const setupAll = async () => {
   const app = createApp(App)
-  
+
   await setupI18n(app)
 
   setupStore(app)
@@ -51,6 +51,12 @@ const setupAll = async () => {
   setupRouter(app)
 
   setupPermission(app)
+
+  // ↓↓↓ 新增：dev 模式下预加载所有页面组件，避免首次点击菜单触发 Vite full reload
+  if (import.meta.env.DEV) {
+    const viewModules = import.meta.glob('@/views/**/*.vue')
+    Object.values(viewModules).forEach((load) => load().catch(() => { }))
+  }
 
   app.mount('#app')
 }
